@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Corey's Drone Tones</title>
+    <title>Drone Tones</title>
     <style>
         body {
             font-family: verdana, arial;
@@ -39,6 +39,10 @@
 
         #a440 {
             background: lightgreen;
+        }
+
+        .footer {
+            font-size: 12px;
         }
     </style>
     <script>
@@ -107,9 +111,6 @@
 
 <body onload="on_load()">
 
-    <div id="my_title">Corey's Javascript Drone Tones</div>
-    <br>
-
     <table>
 
         <tr>
@@ -160,6 +161,10 @@
     Volume:
     <br>
     <input id="gain_input" type="number" onchange="change_gain()" min="1" max="100" value="50"></input>
+
+    <br>
+    <br>
+    <div class="footer">by Corey Trager - <a href="https://github.com/ctrager/drone_tones">https://github.com/ctrager/drone_tones</a></div>
 
 </body>
 
