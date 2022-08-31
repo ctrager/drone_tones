@@ -19,8 +19,28 @@
             font-size: 20px;
         }
 
-        #gain_input {
+
+        .natural {
+            width: 60px;
+            font-family: verdana, arial;
             font-size: 20px;
+            height: 30px;
+        }
+
+        .acciden {
+            width: 60px;
+            font-family: verdana, arial;
+            font-size: 14px;
+            height: 30px;
+        }
+
+        .string {
+            background: lightgreen;
+        }
+
+        .pressed {
+            color: red;
+            background: yellow !important
         }
 
         #my_title {
@@ -28,18 +48,8 @@
             letter-spacing: 3px;
         }
 
-        .not_pressed {
-            color: black;
-            font-weight: normal;
-        }
-
-        .pressed {
-            color: red;
-            font-weight: bold
-        }
-
-        #a440 {
-            background: lightgreen;
+        #gain_input {
+            font-size: 20px;
         }
 
         .footer {
@@ -53,17 +63,18 @@
         var audio_context
         var oscillator
         var gain
-        var gain_factor = .5
+        var gain_factor = .3
         var gain_input
         var prev_frequency
         var prev_button
+        var prev_class
 
         function on_load() {
             gain_input = document.getElementById("gain_input")
         }
 
         function change_gain() {
-            gain_factor = gain_input.value / 100.0
+            gain_factor = gain_input.value / 10
             gain.gain.value = gain_factor
         }
 
@@ -96,7 +107,8 @@
             // connect and disconnect is on and off
             gain.connect(audio_context.destination)
 
-            button.className = "pressed"
+            prev_class = button.className
+            button.className = prev_class + " pressed"
             prev_button = button
 
         }
@@ -104,7 +116,7 @@
         function stop() {
             try {
                 gain.disconnect()
-                prev_button.className = "not_pressed"
+                prev_button.className = prev_class
             } catch (err) {
                 // swallow
             }
@@ -117,45 +129,47 @@
     <table>
 
         <tr>
-            <td><button onclick="start(110.00, this)">A</button></td>
-            <td><button onclick="start(116.54, this)">A#</button></td>
-            <td><button onclick="start(123.47, this)">B</button></td>
-            <td><button onclick="start(130.81, this)">C3</button></td>
-            <td><button onclick="start(138.59, this)">C#</button></td>
-            <td><button onclick="start(146.83, this)">D</button></td>
-            <td><button onclick="start(155.56, this)">D#</button></td>
-            <td><button onclick="start(164.81, this)">E</button></td>
-            <td><button onclick="start(174.61, this)">F</button></td>
-            <td><button onclick="start(185.00, this)">F#</button></td>
-            <td><button onclick="start(196.00, this)">G</button></td>
-            <td><button onclick="start(207.65, this)">G#</button></td>
+            <td><button onclick="start(110.00, this)" class="natural">A</button></td>
+            <td><button onclick="start(116.54, this)" class="acciden">A#/Bb</button></td>
+            <td><button onclick="start(123.47, this)" class="natural">B</button></td>
+            <td><button onclick="start(130.81, this)" class="natural string">C3</button></td>
+            <td><button onclick="start(138.59, this)" class="acciden">C#/Db</button></td>
+            <td><button onclick="start(146.83, this)" class="natural">D</button></td>
+            <td><button onclick="start(155.56, this)" class="acciden">D#/Eb</button></td>
+            <td><button onclick="start(164.81, this)" class="natural">E</button></td>
+            <td><button onclick="start(174.61, this)" class="natural">F</button></td>
+            <td><button onclick="start(185.00, this)" class="acciden">F#/Gb</button></td>
+            <td><button onclick="start(196.00, this)" class="natural string">G</button></td>
+            <td><button onclick="start(207.65, this)" class="acciden">G#/Ab</button></td>
         </tr>
         <tr>
-            <td><button onclick="start(220.00, this)">A</button></td>
-            <td><button onclick="start(233.08, this)">A#</button></td>
-            <td><button onclick="start(246.94, this)">B</button></td>
-            <td><button onclick="start(261.63, this)">C4</button></td>
-            <td><button onclick="start(277.18, this)">C#</button></td>
-            <td><button onclick="start(293.66, this)">D</button></td>
-            <td><button onclick="start(311.13, this)">D#</button></td>
-            <td><button onclick="start(329.63, this)">E</button></td>
-            <td><button onclick="start(349.23, this)">F</button></td>
-            <td><button onclick="start(369.99, this)">F#</button></td>
-            <td><button onclick="start(392.00, this)">G</button></td>
-            <td><button onclick="start(415.30, this)">G#</button></td>
+            <td><button onclick="start(220.00, this)" class="natural">A</button></td>
+            <td><button onclick="start(233.08, this)" class="acciden">A#/Bb</button></td>
+            <td><button onclick="start(246.94, this)" class="natural">B</button></td>
+            <td><button onclick="start(261.63, this)" class="natural">C4</button></td>
+            <td><button onclick="start(277.18, this)" class="acciden">C#/Db</button></td>
+            <td><button onclick="start(293.66, this)" class="natural string">D</button></td>
+            <td><button onclick="start(311.13, this)" class="acciden">D#/Ab</button></td>
+            <td><button onclick="start(329.63, this)" class="natural">E</button></td>
+            <td><button onclick="start(349.23, this)" class="natural">F</button></td>
+            <td><button onclick="start(369.99, this)" class="acciden">F#/Gb</button></td>
+            <td><button onclick="start(392.00, this)" class="natural">G</button></td>
+            <td><button onclick="start(415.30, this)" class="acciden">G#/Ab</button></td>
         </tr>
         <tr>
-            <td><button onclick="start(440, this)" id="a440">A440</button></td>
-            <td><button onclick="start(466.16, this)">A#</button></td>
-            <td><button onclick="start(493.88, this)">B</button></td>
-            <td><button onclick="start(523.25, this)">C5</button></td>
-            <td><button onclick="start(554.37, this)">C#</button></td>
-            <td><button onclick="start(587.33, this)">D</button></td>
-            <td><button onclick="start(622.25, this)">D#</button></td>
-            <td><button onclick="start(659.25, this)">E</button></td>
-            <td><button onclick="start(698.46, this)">F</button></td>
-            <td><button onclick="start(739.99, this)">F#</button></td>
-            <td><button onclick="start(783.99, this)">G</button></td>
+            <td><button onclick="start(440, this)" class="natural string">A440</button></td>
+            <td><button onclick="start(466.16, this)" class="acciden">A#/Bb</button></td>
+            <td><button onclick="start(493.88, this)" class="natural">B</button></td>
+            <td><button onclick="start(523.25, this)" class="natural">C5</button></td>
+            <td><button onclick="start(554.37, this)" class="acciden">C#/Db</button></td>
+            <td><button onclick="start(587.33, this)" class="natural">D</button></td>
+            <td><button onclick="start(622.25, this)" class="acciden">D#/Eb</button></td>
+            <td><button onclick="start(659.25, this)" class="natural, string">E</button></td>
+            <td><button onclick="start(698.46, this)" class="natural">F</button></td>
+            <td><button onclick="start(739.99, this)" class="acciden">F#/Gb</button></td>
+            <td><button onclick="start(783.99, this)" class="natural">G</button></td>
+            <td><button onclick="start(830.61, this)" class="acciden">G#/Ab</button></td>
+
         </tr>
     </table>
 
@@ -167,7 +181,7 @@
     <br>
     Volume:
     <br>
-    <input id="gain_input" type="number" onchange="change_gain()" min="1" max="100" value="50"></input>
+    <input id="gain_input" type="number" onchange="change_gain()" min="1" max="10" value="3"></input>
 
     <br>
     <br>
